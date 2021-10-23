@@ -1,13 +1,10 @@
 {
   "name": "gb_typescript",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": ""
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "typescript": "^4.4.4"
   }

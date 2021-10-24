@@ -1,9 +1,10 @@
 import { renderBlock } from './lib.js'
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 
 export function renderSearchFormBlock (dateIn: string, dateOut: string) {
 
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = new Date();
+  
   renderBlock(
     'search-form-block',
     `<form>

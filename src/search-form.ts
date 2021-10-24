@@ -1,10 +1,12 @@
 import { renderBlock } from './lib.js'
+import { format } from 'date-fns'
 
-export function renderSearchFormBlock () {
+export function renderSearchFormBlock (dateIn: string, dateOut: string) {
+
+  const today = format(new Date(), 'yyyy-MM-dd');
   renderBlock(
     'search-form-block',
-    `
-    <form>
+    `<form>
       <fieldset class="search-filedset">
         <div class="row">
           <div>
@@ -19,11 +21,11 @@ export function renderSearchFormBlock () {
         </div>
         <div class="row">
           <div>
-            <label for="check-in-date">Дата заезда</label>
-            <input id="check-in-date" type="date" value="2021-05-11" min="2021-05-11" max="2021-06-30" name="checkin" />
+            <label for="check-in-date">Дата заезда (yyyy-mm-dd)</label>
+            <input id="check-in-date" type="date" value="${today}" min="" max="2021-06-30" name="checkin" />
           </div>
           <div>
-            <label for="check-out-date">Дата выезда</label>
+            <label for="check-out-date">Дата выезда (yyyy-mm-dd)</label>
             <input id="check-out-date" type="date" value="2021-05-13" min="2021-05-11" max="2021-06-30" name="checkout" />
           </div>
           <div>
@@ -35,7 +37,6 @@ export function renderSearchFormBlock () {
           </div>
         </div>
       </fieldset>
-    </form>
-    `
+    </form>`
   )
 }

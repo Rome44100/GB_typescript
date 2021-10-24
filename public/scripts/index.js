@@ -1,16 +1,5 @@
-class Book {
-    constructor(name, genre, pageAmount) {
-        this.name = name;
-        this.genre = genre;
-        this.pageAmount = pageAmount;
-    }
-}
-const books = [
-    new Book('Harry Potter', 'fantasy', 980),
-    new Book('Charles Dickens. Great expectations', 'novel', 800),
-    new Book('Steve McConnell. Code complete', 'education', 896),
-    new Book('Aditya Bhargava. Grokking Algorithms', 'education', 288),
-];
+import { Book } from './book.js';
+import { books } from './book-collection.js';
 /**
  * @param {string} genre
  * @param {number} limit

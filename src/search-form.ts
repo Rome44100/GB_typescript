@@ -1,9 +1,83 @@
-import { renderBlock } from './lib.js'
-// import { format } from 'date-fns'
+import { renderBlock, renderToast } from './lib.js'
+// import { format } from 'date-fns' // doesn't work
 
-export function renderSearchFormBlock (dateIn: string, dateOut: string) {
+/**
+ * Recieve two dates.
+ * @param {string} firstDate like '2020-10-20'
+ * @param {string} secondDate like '2020-10-21'
+ */
 
-  const today = new Date();
+export function renderSearchFormBlock (firstDate: string, secondDate: string) {
+  // разделитель
+  const delim = '-';
+  
+  let errors = '';
+  
+  // сегодняшняя дата - минимальная дата в диапазоне
+  let now = new Date();
+  const minDate = now.getFullYear() + delim + (now.getMonth() + 1) + delim + now.getDate();
+
+  // дата заезда = сегодня + 1 день
+  const dayIn = now.setDate(now.getDate() + 1);
+  let dateIn = new Date(dayIn);
+
+  // дата выезда = сегодня + 3 дня
+  now = new Date();
+  const dayOut = now.setDate(now.getDate() + 3);
+  let dateOut = new Date(dayOut);
+  
+  // максимальная дата в диапазоне
+  now = new Date();
+  const future = new Date(now.getFullYear(), now.getMonth() + 2);
+  const datePlus = new Date(future.setDate(0));
+  const maxDate = datePlus.getFullYear() + delim + (datePlus.getMonth() + 1) + delim + datePlus.getDate();
+
+  now = new Date();
+  // парсим аргументы
+  const argFristDate = Date.parse(firstDate);
+  const argSecondDate = Date.parse(secondDate);
+  
+  // находим значения для сравнения с аргументами
+  const start = Date.parse(now.toString());
+  const end = Date.parse(datePlus.toString());
+
+  // проверяем аргументы
+  if (!Number.isNaN(argFristDate)) {
+    // ошибки
+    if (argFristDate < start) {
+      errors += 'Первая дата меньше допустимого значения!<br>';
+    }
+    if (argFristDate > end) {
+      errors += 'Первая дата больше допустимого значения<br>';
+    }
+    if (argFristDate >= argSecondDate) {
+      errors += 'Первая дата больше или равна второй!<br>';
+    }
+    if (argSecondDate > end) {
+      errors += 'Вторая дата больше допустимого значения!<br>';
+    }
+    // если ошибок нет, то записываем новые значения из аргументов в объекты даты
+    if (argFristDate < argSecondDate &&
+        argFristDate >= start &&
+        argFristDate < end &&
+        argSecondDate < end) {
+      dateIn = new Date(argFristDate);
+      dateOut = new Date(argSecondDate);
+    }
+  } else {
+    errors += 'Пожалуйста, введите дату в формате "гггг-мм-дд"!<br>';
+  }
+
+  if (errors !== '') {
+    renderToast(
+      { text: errors, type: 'error' },
+      { name: 'Понял', handler: () => { console.log('Уведомление закрыто') } }
+    );
+  }
+
+  // преобразуем объекты даты в строковые значения
+  const dateInValue = dateIn.getFullYear() + delim + (dateIn.getMonth() + 1) + delim + dateIn.getDate();
+  const dateOutValue = dateOut.getFullYear() + delim + (dateOut.getMonth() + 1) + delim + dateOut.getDate();
   
   renderBlock(
     'search-form-block',
@@ -22,12 +96,12 @@ export function renderSearchFormBlock (dateIn: string, dateOut: string) {
         </div>
         <div class="row">
           <div>
-            <label for="check-in-date">Дата заезда (yyyy-mm-dd)</label>
-            <input id="check-in-date" type="date" value="${today}" min="" max="2021-06-30" name="checkin" />
+            <label for="check-in-date">Дата заезда</label>
+            <input id="check-in-date" type="date" value="${dateInValue}" min="${minDate}" max="${maxDate}" name="checkin" />
           </div>
           <div>
-            <label for="check-out-date">Дата выезда (yyyy-mm-dd)</label>
-            <input id="check-out-date" type="date" value="2021-05-13" min="2021-05-11" max="2021-06-30" name="checkout" />
+            <label for="check-out-date">Дата выезда</label>
+            <input id="check-out-date" type="date" value="${dateOutValue}" min="${minDate}" max="${maxDate}" name="checkout" />
           </div>
           <div>
             <label for="max-price">Макс. цена суток</label>

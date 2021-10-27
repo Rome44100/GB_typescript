@@ -1,5 +1,4 @@
-import { renderBlock, renderToast } from './lib.js'
-// import { format } from 'date-fns' // doesn't work
+import { renderToast } from '../libs/lib.js';
 
 /**
  * Recieve two dates.
@@ -7,7 +6,13 @@ import { renderBlock, renderToast } from './lib.js'
  * @param {string} secondDate like '2020-10-21'
  */
 
-export function renderSearchFormBlock (firstDate: string, secondDate: string) {
+export function validateDates (firstDate: string, secondDate: string): {
+    dateInValue: string, 
+    dateOutValue: string,
+    maxDate: string,
+    minDate: string
+  }
+{
   // разделитель
   const delim = '-';
   
@@ -78,40 +83,11 @@ export function renderSearchFormBlock (firstDate: string, secondDate: string) {
   // преобразуем объекты даты в строковые значения
   const dateInValue = dateIn.getFullYear() + delim + (dateIn.getMonth() + 1) + delim + dateIn.getDate();
   const dateOutValue = dateOut.getFullYear() + delim + (dateOut.getMonth() + 1) + delim + dateOut.getDate();
-  
-  renderBlock(
-    'search-form-block',
-    `<form>
-      <fieldset class="search-filedset">
-        <div class="row">
-          <div>
-            <label for="city">Город</label>
-            <input id="city" type="text" disabled value="Санкт-Петербург" />
-            <input type="hidden" disabled value="59.9386,30.3141" />
-          </div>
-          <!--<div class="providers">
-            <label><input type="checkbox" name="provider" value="homy" checked /> Homy</label>
-            <label><input type="checkbox" name="provider" value="flat-rent" checked /> FlatRent</label>
-          </div>--!>
-        </div>
-        <div class="row">
-          <div>
-            <label for="check-in-date">Дата заезда</label>
-            <input id="check-in-date" type="date" value="${dateInValue}" min="${minDate}" max="${maxDate}" name="checkin" />
-          </div>
-          <div>
-            <label for="check-out-date">Дата выезда</label>
-            <input id="check-out-date" type="date" value="${dateOutValue}" min="${minDate}" max="${maxDate}" name="checkout" />
-          </div>
-          <div>
-            <label for="max-price">Макс. цена суток</label>
-            <input id="max-price" type="text" value="" name="price" class="max-price" />
-          </div>
-          <div>
-            <div><button>Найти</button></div>
-          </div>
-        </div>
-      </fieldset>
-    </form>`
-  )
+
+  return {
+    dateInValue: dateInValue, 
+    dateOutValue: dateOutValue,
+    maxDate: maxDate,
+    minDate: minDate
+  };
 }

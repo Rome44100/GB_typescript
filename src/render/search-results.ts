@@ -1,34 +1,29 @@
-import { renderBlock } from './lib.js'
+import { renderBlock } from '../libs/lib.js'
 
 export function renderSearchStubBlock () {
   renderBlock(
     'search-results-block',
-    `
-    <div class="before-results-block">
+    `<div class="before-results-block">
       <img src="img/start-search.png" />
       <p>Чтобы начать поиск, заполните форму и&nbsp;нажмите "Найти"</p>
-    </div>
-    `
+    </div>`
   )
 }
 
 export function renderEmptyOrErrorSearchBlock (reasonMessage) {
   renderBlock(
     'search-results-block',
-    `
-    <div class="no-results-block">
+    `<div class="no-results-block">
       <img src="img/no-results.png" />
       <p>${reasonMessage}</p>
-    </div>
-    `
+    </div>`
   )
 }
 
 export function renderSearchResultsBlock () {
   renderBlock(
     'search-results-block',
-    `
-    <div class="search-results-header">
+    `<div class="search-results-header">
         <p>Результаты поиска</p>
         <div class="search-results-filter">
             <span><i class="icon icon-filter"></i> Сортировать:</span>
@@ -82,7 +77,6 @@ export function renderSearchResultsBlock () {
           </div>
         </div>
       </li>
-    </ul>
-    `
+    </ul>`
   )
 }

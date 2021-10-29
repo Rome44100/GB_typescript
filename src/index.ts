@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const searchData = searchHandler();
   search(searchData);
+  
   // renderToast(
   //   {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
   //   {name: 'Понял', handler: () => {console.log('Уведомление закрыто')}}

@@ -1,8 +1,16 @@
-// import { Place } from '../interfaces/place.js';
+import { Place } from '../interfaces/place.js';
 
-// const callback = (error: string, res: Place) => {
-// };
-
-export function search(searchData, callback = '') {
-  console.log(searchData, callback);
+export function search(
+  searchData: object, 
+  callback = ((arg: string | Place) => { console.log(arg); })
+)
+{
+  setTimeout(() => {
+    console.log(searchData, callback);
+    if (Math.random() <= 0.5) {
+      throw 'Error';
+    } else {
+      return [];
+    }
+  }, 500);
 }

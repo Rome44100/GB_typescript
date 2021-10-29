@@ -1,3 +1,13 @@
 export interface Place {
-  result: []
+  result: [
+    { 
+      id: number,
+      name: string,
+      description: string,
+      image: string,
+      remoteness: number,
+      bookedDates: string[],
+      price: number
+    }
+  ]
 }

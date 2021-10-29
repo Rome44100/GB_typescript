@@ -1,5 +1,5 @@
 import { renderSearchFormBlock } from './render/search-form.js'
-import { renderSearchStubBlock } from './render/search-results.js'
+import { renderSearchStubBlock, renderSearchResultsBlock } from './render/search-results.js'
 import { renderUserBlock } from './render/user.js'
 // import { renderToast } from './lib.js'
 import { searchHandler } from './libs/search-handler.js';
@@ -12,6 +12,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const searchData = searchHandler();
   search(searchData);
+
+  renderSearchResultsBlock();
   
   // renderToast(
   //   {text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},

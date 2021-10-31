@@ -20,12 +20,17 @@ export function renderEmptyOrErrorSearchBlock (reasonMessage) {
   )
 }
 
-export function renderSearchResultsBlock (prom): void {
-  prom.then(list => {
-    if (list.length > 0) {
-      let resList = '';
-      for (let i = 0; i < list.length; i++) {
-        resList += `<li class="result">
+export function renderSearchResultsBlock (list): void {
+  let resList = '';
+  // if (Array.isArray(list)) {
+  //   for (let i = 0; i < list.length; i++) {
+  //     console.log(list[i]);
+  //   }
+  // }
+  if (list.length > 0) {
+    resList += '<ul class="results-list">';
+    for (let i = 0; i < list.length; i++) {
+      resList += `<li class="result">
       <div class="result-container">
         <div class="result-img-container">
           <div class="favorites active"></div>
@@ -46,46 +51,22 @@ export function renderSearchResultsBlock (prom): void {
         </div>
       </div>
     </li>`;
-      }
-
-      renderBlock(
-        'search-results-block',
-        `<div class="search-results-header">
-            <p>Результаты поиска</p>
-            <div class="search-results-filter">
-                <span><i class="icon icon-filter"></i> Сортировать:</span>
-                <select>
-                    <option selected="">Сначала дешёвые</option>
-                    <option selected="">Сначала дорогие</option>
-                    <option>Сначала ближе</option>
-                </select>
-            </div>
-        </div>
-        <ul class="results-list">
-          ${resList}
-        </ul>`
-      )
     }
-  })
-  //   `<li class="result">
-  //   <div class="result-container">
-  //     <div class="result-img-container">
-  //       <div class="favorites"></div>
-  //       <img class="result-img" src="./img/result-2.png" alt="">
-  //     </div>	
-  //     <div class="result-info">
-  //       <div class="result-info--header">
-  //         <p>Akyan St.Petersburg</p>
-  //         <p class="price">13000&#8381;</p>
-  //       </div>
-  //       <div class="result-info--map"><i class="map-icon"></i> 1.1км от вас</div>
-  //       <div class="result-info--descr">Отель Akyan St-Petersburg с бесплатным Wi-Fi на всей территории расположен в историческом здании Санкт-Петербурга.</div>
-  //       <div class="result-info--footer">
-  //         <div>
-  //           <button>Забронировать</button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </li>`;
+    resList += '</ul>';
+  }
+  renderBlock(
+    'search-results-block',
+    `<div class="search-results-header">
+          <p>Результаты поиска</p>
+          <div class="search-results-filter">
+              <span><i class="icon icon-filter"></i> Сортировать:</span>
+              <select>
+                  <option selected="">Сначала дешёвые</option>
+                  <option selected="">Сначала дорогие</option>
+                  <option>Сначала ближе</option>
+              </select>
+          </div>
+      </div>
+      ${resList}`
+  )
 }

@@ -6,7 +6,7 @@ export function search(
 )
 {
   setTimeout(() => {
-    console.log(searchData, callback);
+    console.log(searchData);
     if (Math.random() <= 0.5) {
       throw 'Error';
     } else {

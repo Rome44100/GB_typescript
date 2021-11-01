@@ -1,4 +1,5 @@
 import { renderBlock } from '../libs/lib.js'
+import { PlaceCollection } from '../interfaces/placeCollections.js'
 
 export function renderSearchStubBlock () {
   renderBlock(
@@ -20,40 +21,38 @@ export function renderEmptyOrErrorSearchBlock (reasonMessage) {
   )
 }
 
-export function renderSearchResultsBlock (list): void {
+export function renderSearchResultsBlock (list: PlaceCollection): void {
   let resList = '';
-  // if (Array.isArray(list)) {
-  //   for (let i = 0; i < list.length; i++) {
-  //     console.log(list[i]);
-  //   }
-  // }
-  if (list.length > 0) {
-    resList += '<ul class="results-list">';
-    for (let i = 0; i < list.length; i++) {
-      resList += `<li class="result">
-      <div class="result-container">
-        <div class="result-img-container">
-          <div class="favorites active"></div>
-          <img class="result-img" src="${list[i].image}" alt="">
-        </div>	
-        <div class="result-info">
-          <div class="result-info--header">
-            <p>${list[i].name}</p>
-            <p class="price">${list[i].price}&#8381;</p>
-          </div>
-          <div class="result-info--map"><i class="map-icon"></i> ${list[i].remoteness} км от вас</div>
-          <div class="result-info--descr">${list[i].description}.</div>
-          <div class="result-info--footer">
-            <div>
-              <button>Забронировать</button>
+  if (Array.isArray(list)) {
+    if (list.length > 0) {
+      resList += '<ul class="results-list">';
+      for (let i = 0; i < list.length; i++) {
+        resList += `<li class="result">
+        <div class="result-container">
+          <div class="result-img-container">
+            <div class="favorites active"></div>
+            <img class="result-img" src="${list[i].image}" alt="">
+          </div>	
+          <div class="result-info">
+            <div class="result-info--header">
+              <p>${list[i].name}</p>
+              <p class="price">${list[i].price}&#8381;</p>
+            </div>
+            <div class="result-info--map"><i class="map-icon"></i> ${list[i].remoteness} км от вас</div>
+            <div class="result-info--descr">${list[i].description}.</div>
+            <div class="result-info--footer">
+              <div>
+                <button>Забронировать</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </li>`;
+      </li>`;
+      }
+      resList += '</ul>';
     }
-    resList += '</ul>';
   }
+  
   renderBlock(
     'search-results-block',
     `<div class="search-results-header">

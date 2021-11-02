@@ -20,7 +20,10 @@ export function validateDates (firstDate: string, secondDate: string): {
   
   // сегодняшняя дата - минимальная дата в диапазоне
   let now = new Date();
-  const minDate = now.getFullYear() + delim + (now.getMonth() + 1) + delim + now.getDate();
+  const minDate = now.getFullYear() + delim + 
+    ('0' + (now.getMonth() + 1)).slice(-2) + delim + 
+    ('0' + now.getDate()).slice(-2);
+  // console.log(minDate);
 
   // дата заезда = сегодня + 1 день
   const dayIn = now.setDate(now.getDate() + 1);
@@ -35,14 +38,16 @@ export function validateDates (firstDate: string, secondDate: string): {
   now = new Date();
   const future = new Date(now.getFullYear(), now.getMonth() + 2);
   const datePlus = new Date(future.setDate(0));
-  const maxDate = datePlus.getFullYear() + delim + (datePlus.getMonth() + 1) + delim + datePlus.getDate();
+  const maxDate = datePlus.getFullYear() + delim + 
+    ('0' + (datePlus.getMonth() + 1)).slice(-2) + delim + 
+    ('0' + datePlus.getDate()).slice(-2);
 
-  now = new Date();
   // парсим аргументы
   const argFristDate = Date.parse(firstDate);
   const argSecondDate = Date.parse(secondDate);
   
   // находим значения для сравнения с аргументами
+  now = new Date();
   const start = Date.parse(now.toString());
   const end = Date.parse(datePlus.toString());
 
@@ -65,7 +70,7 @@ export function validateDates (firstDate: string, secondDate: string): {
     if (argFristDate < argSecondDate &&
         argFristDate >= start &&
         argFristDate < end &&
-        argSecondDate < end) {
+        argSecondDate < end) {      
       dateIn = new Date(argFristDate);
       dateOut = new Date(argSecondDate);
     }
@@ -81,8 +86,13 @@ export function validateDates (firstDate: string, secondDate: string): {
   }
 
   // преобразуем объекты даты в строковые значения
-  const dateInValue = dateIn.getFullYear() + delim + (dateIn.getMonth() + 1) + delim + dateIn.getDate();
-  const dateOutValue = dateOut.getFullYear() + delim + (dateOut.getMonth() + 1) + delim + dateOut.getDate();
+  const dateInValue = dateIn.getFullYear() + delim + 
+    ('0' + (dateIn.getMonth() + 1)).slice(-2) + delim + 
+    ('0' + dateIn.getDate()).slice(-2);
+  
+  const dateOutValue = dateOut.getFullYear() + delim + 
+    ('0' + (dateOut.getMonth() + 1)).slice(-2) + delim + 
+    ('0' + dateOut.getDate()).slice(-2);
 
   return {
     dateInValue: dateInValue, 

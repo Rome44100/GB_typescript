@@ -1,6 +1,6 @@
 export interface SearchFormData {
-    city: string
-    dateIn: string,
-    dateOut: string,
-    maxPrice: string
+    city?: string
+    dateIn?: string,
+    dateOut?: string,
+    maxPrice?: string
 }

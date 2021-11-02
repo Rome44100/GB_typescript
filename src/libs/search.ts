@@ -1,6 +1,7 @@
 import { SearchFormData } from '../interfaces/searchFormData.js';
 import { renderSearchResultsBlock } from '../render/search-results.js';
 import { PlaceCollection } from '../interfaces/placeCollections.js';
+import { toggleFavoriteItem } from './toggleFavorite.js';
 
 export function search(
   searchData: SearchFormData, 
@@ -9,6 +10,7 @@ export function search(
       console.log('arg =', arg);
     } else {
       renderSearchResultsBlock(arg);
+      toggleFavoriteItem();
     }
   })
 )

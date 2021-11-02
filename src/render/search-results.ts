@@ -1,5 +1,6 @@
 import { renderBlock } from '../libs/lib.js'
 import { PlaceCollection } from '../interfaces/placeCollections.js'
+import { checkFavItemInStorage } from '../libs/userData.js';
 
 export function renderSearchStubBlock () {
   renderBlock(
@@ -26,11 +27,13 @@ export function renderSearchResultsBlock (list: PlaceCollection): void {
   if (Array.isArray(list)) {
     if (list.length > 0) {
       resList += '<ul class="results-list">';
+      let favActive = false;
       for (let i = 0; i < list.length; i++) {
+        favActive = checkFavItemInStorage(String(list[i].id));
         resList += `<li class="result">
         <div class="result-container">
           <div class="result-img-container">
-            <div class="favorites active"></div>
+            <div class="favorites${favActive?' active':''}" data-favId="${list[i].id}" data-favName="${list[i].name}" data-favImg="${list[i].image}"></div>
             <img class="result-img" src="${list[i].image}" alt="">
           </div>	
           <div class="result-info">
@@ -50,22 +53,24 @@ export function renderSearchResultsBlock (list: PlaceCollection): void {
       </li>`;
       }
       resList += '</ul>';
+
+      renderBlock(
+        'search-results-block',
+        `<div class="search-results-header">
+              <p>Результаты поиска</p>
+              <div class="search-results-filter">
+                  <span><i class="icon icon-filter"></i> Сортировать:</span>
+                  <select>
+                      <option selected="">Сначала дешёвые</option>
+                      <option selected="">Сначала дорогие</option>
+                      <option>Сначала ближе</option>
+                  </select>
+              </div>
+          </div>
+          ${resList}`
+      )
+    } else {
+      renderSearchStubBlock();
     }
   }
-  
-  renderBlock(
-    'search-results-block',
-    `<div class="search-results-header">
-          <p>Результаты поиска</p>
-          <div class="search-results-filter">
-              <span><i class="icon icon-filter"></i> Сортировать:</span>
-              <select>
-                  <option selected="">Сначала дешёвые</option>
-                  <option selected="">Сначала дорогие</option>
-                  <option>Сначала ближе</option>
-              </select>
-          </div>
-      </div>
-      ${resList}`
-  )
 }

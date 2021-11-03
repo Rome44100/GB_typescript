@@ -1,6 +1,8 @@
 {
   "name": "gb_typescript",
   "version": "1.0.0",
+  "main": "./public/scripts/index.js",
+  "types": "./public/scripts/types/index.d.ts",
   "scripts": {
     "build": "rimraf public/scripts && tsc",
     "build:dev": "rimraf public/scripts && tsc -p tsconfig.dev.json",

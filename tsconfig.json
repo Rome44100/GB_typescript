@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "public/scripts",
-    "target": "es2020",
-    "module": "es2020",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
     "allowJs": true,
     "declaration": true,

@@ -24,10 +24,10 @@ export function renderSearchFormBlock (firstDate: string, secondDate: string) {
             <input id="city" type="text" disabled value="Санкт-Петербург" />
             <input type="hidden" disabled value="59.9386,30.3141" />
           </div>
-          <!--<div class="providers">
-            <label><input type="checkbox" name="provider" value="homy" checked /> Homy</label>
-            <label><input type="checkbox" name="provider" value="flat-rent" checked /> FlatRent</label>
-          </div>--!>
+          <div class="providers">
+            <label><input type="radio" name="supplier" value="main" checked />Main</label>
+            <label><input type="radio" name="supplier" value="sdk" />SDK FlatRent</label>
+          </div>
         </div>
         <div class="row">
           <div>

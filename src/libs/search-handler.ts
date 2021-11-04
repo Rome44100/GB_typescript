@@ -6,5 +6,6 @@ export function searchHandler(data: Partial<SearchFormData> = {}):Partial<Search
   data.dateIn = (document.getElementById('check-in-date') as HTMLInputElement).value;
   data.dateOut = (document.getElementById('check-out-date') as HTMLInputElement).value;
   data.maxPrice = (document.getElementById('max-price') as HTMLInputElement).value;
+  data.supplier = (document.querySelector('input[name=supplier]:checked') as HTMLInputElement).value;
   return data;
 }

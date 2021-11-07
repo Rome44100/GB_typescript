@@ -3,5 +3,6 @@ export interface SearchFormData {
     dateIn?: string,
     dateOut?: string,
     maxPrice?: string,
-    supplier?: string
+    supplier?: string,
+    sortResults?: number
 }

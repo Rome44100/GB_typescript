@@ -6,4 +6,5 @@ export interface Place {
   remoteness: number,
   bookedDates: string[],
   price: number
+  totalPrice: number
 }

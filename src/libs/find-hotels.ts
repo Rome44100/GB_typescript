@@ -7,6 +7,9 @@ export function findHotels() {
     ev.preventDefault();
 
     const searchData = searchHandler();
+    if (document.getElementById('sortResults') as HTMLSelectElement) {
+      searchData.sortResults = (document.getElementById('sortResults') as HTMLSelectElement).selectedIndex;
+    }
     search(searchData);
   });
 }

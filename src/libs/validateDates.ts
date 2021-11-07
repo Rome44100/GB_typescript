@@ -10,13 +10,16 @@ export function validateDates (firstDate: string, secondDate: string): {
     dateInValue: string, 
     dateOutValue: string,
     maxDate: string,
-    minDate: string
+    minDate: string,
+    diffDays?: number
   }
 {
   // разделитель
   const delim = '-';
   
   let errors = '';
+
+  let diffDays = 1;
   
   // сегодняшняя дата - минимальная дата в диапазоне
   let now = new Date();
@@ -50,6 +53,9 @@ export function validateDates (firstDate: string, secondDate: string): {
   now = new Date();
   const start = Date.parse(now.toString());
   const end = Date.parse(datePlus.toString());
+
+  diffDays = (Math.floor((argSecondDate - argFristDate) / (1000 * 60 * 60 * 24))) % 30;
+  // millisecond / 1 second * 60 seconds * 60 minutes * 24 hours
 
   // проверяем аргументы
   if (!Number.isNaN(argFristDate)) {
@@ -98,6 +104,7 @@ export function validateDates (firstDate: string, secondDate: string): {
     dateInValue: dateInValue, 
     dateOutValue: dateOutValue,
     maxDate: maxDate,
-    minDate: minDate
+    minDate: minDate,
+    diffDays: diffDays
   };
 }

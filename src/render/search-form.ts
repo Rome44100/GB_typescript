@@ -24,10 +24,10 @@ export function renderSearchFormBlock (firstDate: string, secondDate: string) {
             <input id="city" type="text" disabled value="Санкт-Петербург" />
             <input type="hidden" disabled value="59.9386,30.3141" />
           </div>
-          <div class="providers">
+          <!--<div class="providers">
             <label><input type="radio" name="supplier" value="main" checked />Main</label>
             <label><input type="radio" name="supplier" value="sdk" />SDK FlatRent</label>
-          </div>
+          </div>-->
         </div>
         <div class="row">
           <div>
@@ -40,7 +40,7 @@ export function renderSearchFormBlock (firstDate: string, secondDate: string) {
           </div>
           <div>
             <label for="max-price">Макс. цена суток</label>
-            <input id="max-price" type="text" value="" name="price" class="max-price" />
+            <input id="max-price" type="text" value="100000000" name="price" class="max-price" />
           </div>
           <div>
             <div><button id="button-find">Найти</button></div>

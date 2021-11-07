@@ -231,7 +231,7 @@ export class FlatRentSdk {
 
     if (nightNumber != null) {
       formattedFlat.totalPrice = nightNumber * formattedFlat.price
-      delete formattedFlat.price
+      // delete formattedFlat.price
     }
 
     return formattedFlat

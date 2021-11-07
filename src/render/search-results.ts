@@ -30,23 +30,19 @@ export function renderSearchResultsBlock (list: PlaceCollection): void {
       let favActive = false;
       for (let i = 0; i < list.length; i++) {
         favActive = checkFavItemInStorage(String(list[i].id));
-        const img = list[i].image ? list[i].image : list[i].photos[0];
-        const name = list[i].name ? list[i].name : list[i].title;
-        const price = list[i].price ? list[i].price : list[i].totalPrice;
-        const desc = list[i].description ? list[i].description : list[i].details;
         resList += `<li class="result">
         <div class="result-container">
           <div class="result-img-container">
             <div class="favorites${favActive?' active':''}" data-favId="${list[i].id}" data-favName="${list[i].name}" data-favImg="${list[i].image}"></div>
-            <img class="result-img" src="${img}" alt="">
+            <img class="result-img" src="${list[i].image}" alt="">
           </div>	
           <div class="result-info">
             <div class="result-info--header">
-              <p>${name}</p>
-              <p class="price">${price}&#8381;</p>
+              <p>${list[i].name}</p>
+              <p class="price">${list[i].totalPrice}&#8381;</p>
             </div>
             <div class="result-info--map"><i class="map-icon"></i> ${list[i].remoteness} км от вас</div>
-            <div class="result-info--descr">${desc}.</div>
+            <div class="result-info--descr">${list[i].description}.</div>
             <div class="result-info--footer">
               <div>
                 <button>Забронировать</button>
@@ -64,9 +60,9 @@ export function renderSearchResultsBlock (list: PlaceCollection): void {
               <p>Результаты поиска</p>
               <div class="search-results-filter">
                   <span><i class="icon icon-filter"></i> Сортировать:</span>
-                  <select>
-                      <option selected="">Сначала дешёвые</option>
-                      <option selected="">Сначала дорогие</option>
+                  <select id="sortResults">
+                      <option selected>Сначала дешёвые</option>
+                      <option>Сначала дорогие</option>
                       <option>Сначала ближе</option>
                   </select>
               </div>

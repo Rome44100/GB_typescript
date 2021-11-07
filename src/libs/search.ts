@@ -5,18 +5,16 @@ import { toggleFavoriteItem } from './toggleFavorite.js';
 import { FlatRentSdk } from '../sdk/flat-rent-sdk.js'
 import { validateDates } from './validateDates.js';
 
-export function search(
-  searchData: SearchFormData, 
-  callback = ((arg: string | PlaceCollection) => {
-    if (typeof arg === 'string') {
-      console.log('arg =', arg);
-    } else {
-      renderSearchResultsBlock(arg);
-      toggleFavoriteItem();
-    }
-  })
-)
-{
+function renderOrLog(arg: string | PlaceCollection) {
+  if (typeof arg === 'string') {
+    console.log('arg =', arg);
+  } else {
+    renderSearchResultsBlock(arg);
+    toggleFavoriteItem();
+  }
+}
+
+export function search(searchData: SearchFormData, callback = renderOrLog) {
   setTimeout(() => {
     if (searchData.supplier === 'main') {
       const addr = 'http://localhost:3000/places';

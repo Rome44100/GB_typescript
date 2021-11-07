@@ -1,4 +1,5 @@
 import { FavPlaceCollection } from '../interfaces/favPlaceCollection.js';
+import { UserData } from '../interfaces/userData.js';
 
 export function setFirstStorageState () {
   const favoritesAmount = localStorage.getItem('favoritesAmount');
@@ -12,9 +13,9 @@ export function setFirstStorageState () {
 /**
  * Get username and avatarUrl from localStorage
  * @param {string} user 'user'
- * @returns {unknown}
+ * @returns {UserData}
  */
-export function getUserData (user = 'user'): unknown {
+export function getUserData (user = 'user'): UserData {
   const data = JSON.parse(localStorage.getItem(user));
   return { 
     username: data.username, 
@@ -40,7 +41,7 @@ export function setFavItems (obj: object, favItems = 'favItems'):void {
   localStorage.setItem(favItems, JSON.stringify(obj));
 }
 
-export function getFavItems (favItems = 'favItems') {
+export function getFavItems (favItems = 'favItems'):object {
   const str = localStorage.getItem(favItems);
   return str === '' ? {} : JSON.parse(str);
 }

@@ -26,7 +26,7 @@ export function toggleFavoriteItem () {
           favimg: el.dataset.favimg,
           favname: el.dataset.favname
         });
-        const retItemsObj = {};
+        const retItemsObj: { [key: string]: object } = {};
         arrItems.forEach((el, idx) => retItemsObj[idx] = el );
         setFavItems(retItemsObj);
         // console.log(el.dataset.favid, el.dataset.favimg, el.dataset.favname);

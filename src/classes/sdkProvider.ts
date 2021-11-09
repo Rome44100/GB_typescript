@@ -1,11 +1,11 @@
 import { FlatRentSdk } from '../sdk/flat-rent-sdk.js'
 
 export class SDKProvider {
-  private sdk = null;
+  private sdk = { search: ({}) => void };
   constructor(private city = 'Санкт-Петербург',
     private checkInDate = new Date(),
     private checkOutDate = new Date(),
-    private priceLimit = null)
+    private priceLimit: object)
   {
     this.sdk = new FlatRentSdk();
   }
@@ -17,7 +17,7 @@ export class SDKProvider {
       checkOutDate: this.checkOutDate,
       priceLimit: Number(this.priceLimit)
     })
-      .then(result => {
+      .then((result: object[]) => {
         if (Array.isArray(result)) {
           return result.map(elem => {
             delete elem.coordinates; // TODO: надо высчитывать из координать близость

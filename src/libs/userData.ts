@@ -67,7 +67,7 @@ export function removeItem (id:string):void {
       }
     });
   }
-  const retItemsObj = {};
+  const retItemsObj: { [key: string]: object } = {};
   newItems.forEach((el, idx) => retItemsObj[idx] = el );
   setFavItems(retItemsObj);
 }

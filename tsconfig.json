@@ -6,7 +6,9 @@
     "moduleResolution": "node",
     "allowJs": true,
     "declaration": true,
-    "declarationDir": "public/scripts/types"
+    "declarationDir": "public/scripts/types",
+    "alwaysStrict": true,
+    "noImplicitAny": true
   },
   "include": [
     "src/**/*"

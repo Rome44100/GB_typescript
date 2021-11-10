@@ -9,7 +9,8 @@ import { renderUserBlock } from '../render/user.js';
 
 export function toggleFavoriteItem () {
   const placeList = document.querySelectorAll('.favorites');
-  placeList.forEach((el: HTMLDivElement) => {
+  placeList.forEach((value) => {
+    const el = value as HTMLDivElement;
     el.addEventListener('click', () => {
       let favAmount = 0;
       if (!el.classList.contains('active')) {
@@ -22,9 +23,9 @@ export function toggleFavoriteItem () {
         const favItemsObj:object = getFavItems();
         const arrItems = Object.values(favItemsObj);
         arrItems.push({
-          favid: el.dataset.favid,
-          favimg: el.dataset.favimg,
-          favname: el.dataset.favname
+          favid: el.dataset['favid'],
+          favimg: el.dataset['favimg'],
+          favname: el.dataset['favname']
         });
         const retItemsObj: { [key: string]: object } = {};
         arrItems.forEach((el, idx) => retItemsObj[idx] = el );
@@ -36,8 +37,10 @@ export function toggleFavoriteItem () {
         if(favAmount > 0) {
           setFavAmount(--favAmount);
         }
-        removeItem(el.dataset.favid);
-        el.classList.remove('active');
+        if (el.dataset['favid'] !== undefined) {
+          removeItem(el.dataset['favid']);
+          el.classList.remove('active');
+        }
       }
       // Вызывать рендер в таком виде и в этом месте - по-моему, беда
       // но ради скорости другого выбора нет

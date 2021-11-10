@@ -16,10 +16,17 @@ export function setFirstStorageState () {
  * @returns {UserData}
  */
 export function getUserData (user = 'user'): UserData {
-  const data = JSON.parse(localStorage.getItem(user));
-  return { 
-    username: data.username, 
-    avatarUrl: data.avatarUrl
+  const getUser = localStorage.getItem(user);
+  if (getUser !== null) {
+    const data = JSON.parse(getUser);
+    return {
+      username: data.username, 
+      avatarUrl: data.avatarUrl
+    };
+  }
+  return {
+    username: '', 
+    avatarUrl: ''
   };
 }
   
@@ -29,8 +36,16 @@ export function getUserData (user = 'user'): UserData {
  * @returns {unknown}
  */
 export function getFavoritesAmount (favoritesAmount = 'favoritesAmount'):number {
-  const num = parseInt(localStorage.getItem(favoritesAmount));
-  return Number.isNaN(num) ? 0 : num;
+  try {
+    const getNumFav = localStorage.getItem(favoritesAmount);
+    let num = null;
+    if (getNumFav !== null) {
+      num = parseInt(getNumFav);
+    }
+    return Number.isNaN(num) || num === null ? 0 : num;
+  } catch (er) {
+    throw 'Error get from storage: ' + er;
+  }
 }
 
 export function setFavAmount (cnt = 0, favoritesAmount = 'favoritesAmount'):void {
@@ -42,8 +57,16 @@ export function setFavItems (obj: object, favItems = 'favItems'):void {
 }
 
 export function getFavItems (favItems = 'favItems'):object {
-  const str = localStorage.getItem(favItems);
-  return str === '' ? {} : JSON.parse(str);
+  try {
+    const getItems = localStorage.getItem(favItems);
+    let str = null;
+    if (getItems !== null) {
+      str = JSON.parse(getItems);
+    }
+    return str === null ? {} : str;
+  } catch (er) {
+    throw 'Error get from storage: ' + er;
+  }
 }
 
 export function checkFavItemInStorage (id:string):boolean {

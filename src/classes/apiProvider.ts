@@ -4,7 +4,7 @@ export class APIProvider {
   public places: PlaceCollection = [];
   private address = 'http://localhost:3000/places';
 
-  public find(days) {
+  public find(days:number) {
     return fetch(this.address)
       .then(data => {
         return data.text();
@@ -20,9 +20,10 @@ export class APIProvider {
           return list.map(place => {
             place.totalPrice = place.price * diffDays;
             return place;
-          })
+          });
+        } else {
+          return [];
         }
-        return list;
       });
   }
 }

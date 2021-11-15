@@ -28,21 +28,42 @@ function sortByPrice(one: Place, two: Place) {
 
 export function search(searchData: SearchFormData, callback = renderOrLog) {
   setTimeout(() => {
-    const correctDates = validateDates(searchData.dateIn, searchData.dateOut);
+    let dateInParam = '';
+    let dateOutParam = '';
+    if (searchData.dateIn !== undefined) {
+      dateInParam = searchData.dateIn;
+    }
+    if (searchData.dateOut !== undefined) {
+      dateOutParam = searchData.dateOut;
+    }
+    const correctDates = validateDates(dateInParam, dateOutParam);
     const dateIn = new Date(correctDates.dateInValue);
     const dateOut = new Date(correctDates.dateOutValue);
     
     const apiList = new APIProvider();
 
+    let maxPriceParam = '';
+    if (searchData.maxPrice !== undefined) {
+      maxPriceParam = searchData.maxPrice;
+    }
     // не знаю как лучше - с параметрами или без вызывать методы или конструкторы...
-    const sdkList = new SDKProvider('Санкт-Петербург', dateIn, dateOut, searchData.maxPrice);
+    const sdkList = new SDKProvider('Санкт-Петербург', dateIn, dateOut, maxPriceParam);
 
+    let diffDaysParam = 0;
+    if (correctDates.diffDays !== undefined) {
+      diffDaysParam = correctDates.diffDays;
+    }
     Promise.all([
-      apiList.find(correctDates.diffDays),
+      apiList.find(diffDaysParam),
       sdkList.find()
     ])
       .then(results => {
-        let allResults: PlaceCollection = [].concat(results[0], results[1]);
+        let allResults: PlaceCollection = [];
+        if (Array.isArray(allResults)) {
+          if (results) {
+            allResults = allResults.concat(results[0], results[1]);
+          }
+        }
 
         if (searchData.maxPrice !== '') {
           if(Array.isArray(allResults)) {
@@ -57,7 +78,11 @@ export function search(searchData: SearchFormData, callback = renderOrLog) {
           // что нет свойства filter в типе PlaceCollection
           // это для меня вопрос??? :)
           if (Array.isArray(allResults)) {
-            allResults = allResults.filter(el => el.totalPrice <= searchData.maxPrice);
+            let mpParam = '';
+            if (searchData.maxPrice !== undefined) {
+              mpParam = searchData.maxPrice;
+            }
+            allResults = allResults.filter(el => el.totalPrice <= mpParam);
           }
         }
 
